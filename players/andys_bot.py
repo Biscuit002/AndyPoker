@@ -20,15 +20,15 @@ class andys_bot(PokerBotAPI):
         
         #define hand strengths through dictionary
         Strengths = {
-            "pair": 25
-            "high_card": 5
-            "ace_high": 20
-            "pocket_aces": 200
-            "consecutive_numbers": 50
+            "pair": 25,
+            "high_card": 5,
+            "ace_high": 20,
+            "pocket_aces": 200,
+            "consecutive_numbers": 50,
             "same_suit": 25}
 
-        isPair = (card1.Rank.value == card2.rank.value)
-        isHighCard = (card1.Rank.value >= Rank.JACK.value or card2.Rank.value >= Rank.JACK.value))
+        isPair = (card1.Rank.value == card2.Rank.value)
+        isHighCard = (card1.Rank.value >= Rank.JACK.value or card2.Rank.value >= Rank.JACK.value)
         isAceHigh = (card1.Rank == Rank.ACE or card2.Rank == Rank.ACE)
         isPocketAces = (card1.Rank == Rank.ACE and card2.Rank == Rank.ACE)
         isConsecutive = (abs(card1.Rank.value - card2.Rank.value) == 1)
@@ -44,10 +44,10 @@ class andys_bot(PokerBotAPI):
 
 
         #determine action
-        if cardvalue >= 300:
+        if card_value >= 300:
             intendedAction = PlayerAction.ALL_IN
             intendedAmount = max_bet
-        elif cardvalue >= 100 and cardValue <= 300:
+        elif card_value >= 100 and cardValue <= 300:
             intendedAction = PlayerAction.RAISE
             if max_bet >= cardValue:
                 intendedAmount = max_bet
