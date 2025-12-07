@@ -120,17 +120,16 @@ class andys_bot(PokerBotAPI):
     + strengths["straight_flush"] * isStraightFlush
     + strengths["royal_flush"] * isRoyalFlush)
     #determine action
-    if card_value >= 1000000:
-        pass
+    if card_value >= 500:
         intendedAction = PlayerAction.ALL_IN
         intendedAmount = max_bet
-    elif card_value >= 1800:
+    elif card_value >= 400:
         intendedAction = PlayerAction.RAISE
         intendedAmount = int(max_bet * 0.2)
-    elif card_value >= 1500:
+    elif card_value >= 300:
         intendedAction = PlayerAction.RAISE
         intendedAmount = int(max_bet * 0.1)
-    elif card_value >= 1200:
+    elif card_value >= 200:
         intendedAction = PlayerAction.RAISE
         intendedAmount = int(max_bet * 0.05)
     elif card_value >= 0:
@@ -141,15 +140,22 @@ class andys_bot(PokerBotAPI):
         intendedAmount = 0
 
     self.logger.info("card value: " + str(card_value))
+    self.logger.info("intended action: " + str(intendedAction))
+    self.logger.info("legal actions: " + str(legal_actions))
     # check if action is currently legal
     if intendedAction in legal_actions:
+        legal_actions.clear()
+        legal_actions.append(intendedAction)
         return intendedAction, intendedAmount
-    elif PlayerAction.RAISE in legal_actions:
-        return PlayerAction.RAISE, max_bet
-    elif PlayerAction.CALL in legal_actions:
-        return PlayerAction.CALL,0
+    elif card_value <= 10:
+        if PlayerAction.FOLD in legal_actions:
+            return PlayerAction.FOLD, 0
     elif PlayerAction.CHECK in legal_actions:
         return PlayerAction.CHECK, 0
+    elif PlayerAction.CALL in legal_actions:
+        return PlayerAction.CALL, 0
+    elif PlayerAction.RAISE in legal_actions:
+        return PlayerAction.RAISE, min_bet
     elif PlayerAction.ALL_IN in legal_actions:
         return PlayerAction.ALL_IN, max_bet
     else:
