@@ -186,6 +186,8 @@ players/*
 !players/conservative_bot.py
 !players/random_bot.py
 !players/winner.py
+!players/andys_bot.py
+
 .DS_Store
 players/winner.py
 repro_side_pot.py
