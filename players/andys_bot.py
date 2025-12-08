@@ -153,7 +153,7 @@ class andys_bot(PokerBotAPI):
 			legal_actions.clear()
 			legal_actions.append(intendedAction)
 			return intendedAction, intendedAmount
-		elif current_bet >= 500 and PlayerAction.FOLD in legal_actions:
+		elif current_bet >= 400 and PlayerAction.FOLD in legal_actions:
 			return PlayerAction.FOLD, 0
 		elif is2and7 == True and PlayerAction.FOLD in legal_actions:
 			return PlayerAction.FOLD, 0
